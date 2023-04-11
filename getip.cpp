@@ -1,10 +1,9 @@
+#include <iostream>
 #include <net/if.h>
 #include <sys/ioctl.h>
 #include <arpa/inet.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
 #include <string>
+#include <boost/timer.hpp>
 #define ETH_NAME    "wlan0"  //如果要获取其他网卡的地址，将这个换为其他网卡名称，比如eth0
 			     //
 	std::string get_ip();
@@ -13,6 +12,8 @@
 	int main()
 	{
 	    //ip
+            boost::timer t;
+	    std::cout<<"maxtime span:"<<t.elapsed_max()/3600<<std::endl;
 	    std::string ip = get_ip();
 	    printf("current_ip: %s\n", ip.c_str());
 	    return 0;
