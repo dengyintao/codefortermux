@@ -24,6 +24,7 @@ int main()
  	std::string iptemp = get_ip();
  	if (ip!=iptemp)
  	{
+		ip = iptemp;
  		boost::format fmt("当前ip地址:%s");
  		fmt%iptemp;
  		std::string msg = fmt.str();
@@ -31,7 +32,7 @@ int main()
  		while (!bSend)
  		{
  			bSend = PushMessagetoIOS(msg);
- 			if (!bsend)
+ 			if (!bSend)
  			{
  				printf("current_ip: %s 发送失败\n", iptemp.c_str());
  			}	
@@ -50,7 +51,7 @@ std::string get_ip()
   sockfd = socket(AF_INET, SOCK_DGRAM, 0);
   if (sockfd == -1) 
   {
-     return "127.0.0.1"
+     return "wifi已断开";
   }
 
   strncpy(ifr.ifr_name, ETH_NAME, IFNAMSIZ);      //Interface name
@@ -59,6 +60,7 @@ std::string get_ip()
      memcpy(&sin, &ifr.ifr_addr, sizeof(ifr.ifr_addr));
      return inet_ntoa(sin.sin_addr);
   }
+  return "不可用";
  }
 
  bool PushMessagetoIOS(std::string msg)
